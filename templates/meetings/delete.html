@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}delete{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated and user == meeting.author %}
+<h3> Czy chcesz usunąć spotkanie: {{meeting.title}}</h3>
+
+<form method="POST">
+      {% csrf_token %}
+    <button type="submit" class="'btn btn-primary btn-sm mb-2" name="delete">Usuń</button>
+</form>
+{% endif %}
+
+{% endblock %}

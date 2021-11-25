@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Edit{% endblock %}
+
+{% block content %}
+<h1>Edytuj spotkanie</h1>
+{% if user.is_authenticated %}
+
+    <form method="POST">
+    {% csrf_token %}
+    {% for field in form.visible_fields %}
+        <div class="'form-group">
+            <label for="'{{ field.id_for_label }}">{{field.label}}</label>
+            {{field|add_class:'form-control'}}
+            {% for error in field.errors %}
+            <span class="text-danger">{{error}}</span>
+            {% endfor %}
+        </div>
+        <br>
+    {% endfor %}
+        <br>
+        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+    </form>
+{% elif not user.is_authenticated %}
+<hr>
+<h3>Zmiany w istniejących zebraniach mogą być tworzone tylko przez zalogowanych użytkowników.</h3>
+{% endif %}
+{% endblock %}

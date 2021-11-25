@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Nowe spotkanie{% endblock %}
+
+{% block content %}
+<h1>Nowe spotkanie</h1>
+{% if user.is_authenticated %}
+    <form method="POST">
+    {% csrf_token %}
+    {% for field in form.visible_fields %}
+        <div class="'form-group">
+            <label for="'{{ field.id_for_label }}">{{field.label}}</label>
+            {{field|add_class:'form-control'}}
+            {% for error in field.errors %}
+            <li>
+                <span class= "text-danger">{{error}}</span>
+            </li>
+            {% endfor %}
+        </div>
+        <br>
+    {% endfor %}
+        <br>
+        <button type="submit" class="btn btn-primary">Zapisz</button>
+    </form>
+{% else %}
+<hr>
+<h3>Nowe zebrania mogą być tworzone tylko przez zalogowanych użytkowników.</h3>
+{% endif %}
+{% endblock %}

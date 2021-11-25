@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Log in{% endblock %}
+
+{% block content %}
+<main role="main" class="mx-auto" style="width: 400px;">
+  <form class="form-signin mb-3 mt-3" method="post">
+  {% csrf_token %}
+    <div class="form-group pb-6">
+      <h1 class="h3 mb-3 font-weight-normal">Zaloguj się</h1>
+      {% for field in form.visible_fields %}
+      <label for="'{{ field.id_for_label }}">{{field.label}}</label>
+      {{field|add_class:'form-control mb-3'}}
+        {% for error in field.errors %}
+        <span class="'helper-block">{{error}}</span>
+        {% endfor %}
+     {% endfor %}
+    </div>
+    <div class="checkbox mb-3">
+      <label>
+       <input type="checkbox" value="remember-me"> Zapamiętaj
+      </label>
+   </div>
+   <button class="btn btn-lg btn-primary btn-block" type="submit">Zapisz</button>
+  </form>
+</main>
+
+{% endblock %}

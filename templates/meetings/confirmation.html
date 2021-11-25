@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmation{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<h3> Usunięto spotkanie</h3>
+<a class="'btn btn-primary btn-sm mb-2" href="/" name="edit">Home</a>
+{% endif %}
+
+{% endblock %}

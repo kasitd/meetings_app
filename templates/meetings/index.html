@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}index{% endblock %}
+
+{% block content %}
+<h1>Szczegóły spotkania</h1>
+<h2 class="mt-4">{{meeting.title}}</h2>
+    <div class="row mb-3">
+      <div class="col-sm-6 col-lg-8 themed-grid-col">spotkanie zwołuje</div>
+      <div class="col-6 col-lg-4 themed-grid-col">{{meeting.author}}</div>
+      <div class="col-sm-6 col-lg-8 themed-grid-col">data spotkania</div>
+      <div class="col-6 col-lg-4 themed-grid-col">{{meeting.date}}</div>
+      <div class="col-sm-6 col-lg-8 themed-grid-col">rozpoczęcie</div>
+      <div class="col-6 col-lg-4 themed-grid-col">{{meeting.start_time}}</div>
+      <div class="col-sm-6 col-lg-8 themed-grid-col">zakończenie</div>
+      <div class="col-6 col-lg-4 themed-grid-col">{{meeting.end_time}}</div>
+      <div class="col-sm-6 col-lg-8 themed-grid-col">sala</div>
+      <div class="col-6 col-lg-4 themed-grid-col">{{meeting.room}}</div>
+      <div class="col-sm-6 col-lg-8 themed-grid-col">uczestnicy</div>
+      <div class="col-6 col-lg-4 themed-grid-col">{{ meeting.participants.all|join:", " }}</div>
+    </div>
+<br>
+{% if user.is_authenticated and user == meeting.author %}
+<a class="'btn btn-primary btn-sm mb-2" href="/meetings/{{meeting.id}}/edit" name="edit">Edytuj</a>
+<a class="'btn btn-primary btn-sm mb-2" href="/meetings/{{meeting.id}}/delete" name="delete">Usuń</a>
+{% endif %}
+{% if user.is_authenticated and user != meeting.author %}
+<p class="text-primary"> Nie jesteś autorem tego zebrania. Nie masz uprawnień do wprowadzania zmian. </p>
+{% endif %}
+
+{% endblock %}
